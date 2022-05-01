@@ -103,9 +103,8 @@ function resetGame(){
     scoreElement.textContent = `Score: ${score}/${questionCount}`;
     rankElement.textContent = `Rank: ${rank}`;
 
-    let resetQuestion = JSON.parse(localStorage.getItem('questions'));
-    resetQuestion.forEach(x => x.isUsed = false);
-    localStorage.setItem('questions', JSON.stringify(resetQuestion));
+    questionsAsArray.forEach(x => x.isUsed = false);
+    localStorage.setItem('questions', JSON.stringify(questionsAsArray));
 }
 
 function determineRank(){

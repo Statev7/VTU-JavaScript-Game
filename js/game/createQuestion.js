@@ -44,7 +44,7 @@ function validateInput(){
     let isValid = true;
     let errorMessage = '';
     let errorMessagesAsArray = [];
-    let validAnswers = ['a', 'b', 'c', 'd'];
+    const validAnswers = ['a', 'b', 'c', 'd'];
 
     userInputElements.forEach(x => {
         if(x.value == ''){
