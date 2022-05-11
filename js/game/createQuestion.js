@@ -1,8 +1,10 @@
 import { alert, isQuestionExist } from "../common/functions.js";
 
+const createFormElement = document.getElementById('create-question-form');
 const userInputElements = document.querySelectorAll('#create-question-form input[type=text]');
 const createButtonElement = document.getElementById('create-question-btn');
 const errorMessagesElement = document.getElementById('errors-output');
+const answerBoxElement = document.getElementById('answers');
 
 createButtonElement.addEventListener('click', createQuestion);
 
@@ -28,7 +30,7 @@ function createQuestion(){
     userQuestion.b = userInputElements[2].value;
     userQuestion.c = userInputElements[3].value;
     userQuestion.d = userInputElements[4].value;
-    userQuestion.correctAnswer = userInputElements[5].value;
+    userQuestion.correctAnswer = getSelectedAnswer();
     userQuestion.isUsed = false;
 
     let questionsAsArray = JSON.parse(localStorage.getItem('questions'));
@@ -36,7 +38,7 @@ function createQuestion(){
     localStorage.setItem('questions', JSON.stringify(questionsAsArray));
 
     alert('Successfully created a new question!', 'successful')
-    userInputElements.forEach(x => x.value = '');
+    createFormElement.reset();
 }
 
 function validateInput(){
@@ -44,7 +46,6 @@ function validateInput(){
     let isValid = true;
     let errorMessage = '';
     let errorMessagesAsArray = [];
-    const validAnswers = ['a', 'b', 'c', 'd'];
 
     userInputElements.forEach(x => {
         if(x.value == ''){
@@ -52,14 +53,6 @@ function validateInput(){
             errorMessagesAsArray.push(errorMessage);
         }
     });
-
-    let correctAnswerValue = userInputElements[userInputElements.length - 1].value;
-
-    let isUserCorrectAnswerValid = validAnswers.includes(correctAnswerValue);
-    if (isUserCorrectAnswerValid == false && correctAnswerValue) {
-        errorMessage = `The correct answer cannot be different from the following: ${validAnswers.join(', ')}`;
-        errorMessagesAsArray.push(errorMessage);
-    }
 
     if(errorMessage){
         
@@ -77,4 +70,16 @@ function validateInput(){
     }
 
     return isValid;
+}
+
+function getSelectedAnswer() {
+    let answer;
+    for (let index = 0; index < answerBoxElement.options.length; index++) {
+        const option = answerBoxElement.options[index];
+        if (option.selected === true) {
+            answer = option.value;
+            break;
+        }
+    }
+    return answer;
 }

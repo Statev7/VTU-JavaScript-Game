@@ -1,6 +1,7 @@
-let isNull = localStorage.key('questions') == null;
+const questions = JSON.parse(localStorage.getItem('questions'));
+const isEmpty = questions == null || questions.length == 0;
 
-if(isNull){
+if(isEmpty){
     seedData();
 }
 
@@ -18,12 +19,12 @@ function seedData(){
         }
     }
 
-    let question1 = new Question('Коя е столицата на България?', 'София', 'Пловдив', 'В. Търново', 'Варна', 'a', false);
-    let question2 = new Question('Кой е вторият по големина град в България?', 'Варна', 'София', 'Пловдив', 'Бургас', 'c', false);
-    let question3 = new Question('Кой е най-високият връх в България?', 'Вихрен', 'Ботев', 'Българка', 'Мусала', 'd', false);
-    let question4 = new Question('Коя е най-дългата река в България?', 'Искър', 'Марица', 'Янтра', 'Места', 'a', false);
+    const question1 = new Question('Коя е столицата на България?', 'София', 'Пловдив', 'В. Търново', 'Варна', 'a', false);
+    const question2 = new Question('Кой е вторият по големина град в България?', 'Варна', 'София', 'Пловдив', 'Бургас', 'c', false);
+    const question3 = new Question('Кой е най-високият връх в България?', 'Вихрен', 'Ботев', 'Българка', 'Мусала', 'd', false);
+    const question4 = new Question('Коя е най-дългата река в България?', 'Искър', 'Марица', 'Янтра', 'Места', 'a', false);
 
-    let questionArray = [question1, question2, question3, question4];
+    const questionArray = [question1, question2, question3, question4];
 
     localStorage.setItem('questions', JSON.stringify(questionArray));
 }
